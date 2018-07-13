@@ -1,7 +1,17 @@
 doctype html
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+    head
+        title= title
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
+        link(type="text/css" rel="stylesheet" href="/stylesheets/materialize.min.css"  media="screen,projection")
+        link(rel='stylesheet', href='/stylesheets/style.css')
+    body
+        nav
+            .nav-wrapper
+                <a href="#!" class="brand-logo">PasspAuth</a>
+        //-
+        block content
+        //-
+        scrip(type="text/javascript" src="/javascripts/materialize.min.js")
+        scrip(type="text/javascript" src="/javascripts/script.js")
