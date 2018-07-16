@@ -1,27 +1,6 @@
-class User {
-    database = [
-        {
-            username: 'ramyres',
-            password: 'qwe123',
-        }
-    ]
-    constructor() {
+const Sequelize = require('sequelize');
 
-    }
-    findOne(user) {
-        return new Promise((resolve, reject) => {
-            try {
-                this.database.forEach((element) => {
-                    if (element.username === user.username & element.password === user.password) {
-                        resolve(element);
-                    }
-                })
-                resolve(null);
-            } catch (error) {
-                reject(error);
-            }
-        });
-    }
-}
-
-module.exports = new User();
+const User = Sequelize.define('tb_user',{
+    username: Sequelize.STRING,
+    password: Sequelize.STRING
+})
