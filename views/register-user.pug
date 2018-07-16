@@ -1,0 +1,57 @@
+extends layout
+
+block content
+    .container
+        .row
+            if user
+                h1 Edit User
+            else
+                h1 Add User
+        .row
+            - var data = (!!user)? user : {};
+            <form class="col s12" method='POST'>
+                input(type="hidden" name="id" value=data.id)
+                <div class="row">
+                    <div class="input-field col s12 l6">
+                        <input name="first_name" type="text" class="validate" autofocus required value=#{data.firstName}>
+                        <label for="first_name">First Name</label>
+                    </div>
+                    <div class="input-field col s12 l6">
+                        <input name="last_name" type="text" class="validate" value=#{data.lastName}>
+                        <label for="last_name">Last Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 l6">
+                        <input name="username" type="text" class="validate" required value=#{data.username}>
+                        <label for="username">Username</label>
+                    </div>
+                    <div class="input-field col s12 l6">
+                        <input name="password" type="password" class="validate" required value=#{data.password}>
+                        <label for="password">Password</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 l6">
+                        <div class="switch">
+                            <label> 
+                                | Active
+                                <input name="status" type="checkbox" checked>
+                                <span class="lever"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="input-field col s12 l6">
+                        .right
+                            <button class="btn waves-effect waves-light" type="submit"> Submit
+                                <i class="material-icons left">save</i>
+                            </button>
+                            <a href="/user" class="btn waves-effect waves-light black-text yellow"> Cancel
+                                <i class="material-icons left">cancel</i>
+                            </a>
+                    </div>
+                </div>
+            </form>
+                    
+                    
+            

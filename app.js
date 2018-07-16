@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index-route');
 var auth = require('./routes/auth-route');
+var user = require('./routes/user-route');
 
 var app = express();
 
@@ -15,7 +16,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 //plugins
-app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'img', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -25,6 +26,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 //routes
 app.use('/', index);
 app.use('/auth', auth);
+app.use('/user', user);
+
+//modul
+const init_model = require('./model/init-model');
+init_model();
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

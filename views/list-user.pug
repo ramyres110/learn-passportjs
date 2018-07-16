@@ -1,0 +1,71 @@
+extends layout
+
+block content
+    if users.length > 0
+        each user,index in users
+            .modal(id='modal'+index)
+                .modal-content
+                    h4 #{user.id} - #{user.firstName} #{user.lastName}
+                    h5 Username = #{user.username}
+                    h5 Active = #{(user.status === 'on')?'On':'Off'}
+                .modal-footer
+                    <a href="#!" class="modal-close waves-effect waves-green btn red">Close</a>
+
+    .container
+        .row
+            h1 Users
+        .row
+            table.striped.highlight.centered.responsive-table
+                thead
+                    tr
+                        th #
+                        th First Name
+                        th Last Name
+                        th Username
+                        th Status
+                        th Create At
+                        th Options
+                tbody
+                    if users.length > 0
+                        each user,index in users
+                            tr
+                                td #{user.id}
+                                td #{user.firstName}
+                                td #{user.lastName}
+                                td #{user.username}
+                                td #{(user.status === 'on')?'On':'Off'}
+                                td #{new Date(user.createdAt).toLocaleString()}
+                                td
+                                    a.btn.waves-effect.waves-light.blue.modal-trigger(href="#modal"+index)
+                                        i.material-icons.prefix remove_red_eye
+                                    | &nbsp;
+                                    a.btn.waves-effect.waves-light(href="/user/edit/"+user.id)
+                                        i.material-icons.prefix edit
+                                    | &nbsp;
+                                    a.btn.waves-effect.waves-light.amber(href="/user/delete/"+user.id)
+                                        i.material-icons.prefix delete
+
+                    else
+                        tr  
+                            td(colspan="7") 
+                                <h5 class="center-align grey-text text-lighten-2">Don't have user registered</h5>
+
+                        
+                            
+    //-
+    .fixed-action-btn
+        a.btn-floating.btn-large.red.waves-effect.waves-light(href="/user/add")
+            i.large.material-icons add
+    script
+        | document.addEventListener('DOMContentLoaded', function() {
+        |   var elems2 = document.querySelectorAll('.fixed-action-btn');
+        |   var instances2 = M.FloatingActionButton.init(elems2, {direction: 'buttom'});
+        |
+        |   var elems = document.querySelectorAll('.modal');
+        |   var instances = M.Modal.init(elems, {});
+        | });
+    
+                    
+                    
+            
+

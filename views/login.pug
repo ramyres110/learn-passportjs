@@ -1,0 +1,37 @@
+extends layout
+
+block content
+    .container
+        .row
+            .col.s12
+        .row
+            .col.s12.l6.offset-l3
+                form(method="POST" action="/auth/login")
+                    .card.m5
+                        <div class="card-content">
+                            <div class="card-title center">
+                                <i class="large material-icons">school</i>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">account_circle</i>
+                                    <input id="username" name="username" type="text" class="validate" autocomplete="off" autofocus="on">
+                                    <label class='active' for="username">Username</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">enhanced_encryption</i>
+                                    <input id="password" name="password" type="password" class="validate" autocomplete="off" >
+                                    <label class='active' for="password">Password</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-action right-align">
+                            <button class="btn waves-effect waves-light" type="Submit">Submit
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                    
+            
+
