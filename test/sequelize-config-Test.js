@@ -1,14 +1,11 @@
 const should = require('chai').should();
+
+const shouldPass = require('chai-as-promised').shouldPass;
+
 const sequelize = require('../config/sequelize-config');
 
 describe('Sequelize Connection', function () {
     it('sequelize should authenticate', function () {
-        sequelize.authenticate()
-            .then(() => {
-                
-            })
-            .catch(err => {
-                should.exist(err);
-            });
+        return sequelize.authenticate().should.not.be.rejected;
     });
 });
