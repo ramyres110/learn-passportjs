@@ -10,4 +10,7 @@ const User = sequelize.define('tb_user', {
     status: Sequelize.STRING
 });
 
+const Permition = require('./permition-model');
+User.hasMany(Permition);
+
 module.exports = User;

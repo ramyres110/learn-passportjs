@@ -1,0 +1,64 @@
+extends layout
+
+block content
+    if routines.length > 0
+        each routine,index in routines
+            .modal(id='modal'+index)
+                .modal-content
+                    h4 #{routine.id} - #{routine.name}
+                    p #{routine.description}
+                .modal-footer
+                    <a href="#!" class="modal-close waves-effect waves-green btn red">Close</a>
+
+    .container
+        .row
+            h1 Routines
+        .row
+            table.striped.highlight.centered.responsive-table
+                thead
+                    tr
+                        th #
+                        th Name
+                        th Description
+                        th Options
+                tbody
+                    if routines.length > 0
+                        each routine,index in routines
+                            tr
+                                td #{routine.id}
+                                td #{routine.name}
+                                td #{routine.description}
+                                td
+                                    a.btn.waves-effect.waves-light.blue.modal-trigger(href="#modal"+index)
+                                        i.material-icons.prefix remove_red_eye
+                                    | &nbsp;
+                                    a.btn.waves-effect.waves-light(href="/routine/edit/"+routine.id)
+                                        i.material-icons.prefix edit
+                                    | &nbsp;
+                                    a.btn.waves-effect.waves-light.amber(href="/routine/delete/"+routine.id)
+                                        i.material-icons.prefix delete
+
+                    else
+                        tr  
+                            td(colspan="7") 
+                                <h5 class="center-align grey-text text-lighten-2">Don't have routine registered</h5>
+
+                        
+                            
+    //-
+    .fixed-action-btn
+        a.btn-floating.btn-large.red.waves-effect.waves-light(href="/routine/add")
+            i.large.material-icons add
+    script
+        | document.addEventListener('DOMContentLoaded', function() {
+        |   var elems2 = document.querySelectorAll('.fixed-action-btn');
+        |   var instances2 = M.FloatingActionButton.init(elems2, {direction: 'buttom'});
+        |
+        |   var elems = document.querySelectorAll('.modal');
+        |   var instances = M.Modal.init(elems, {});
+        | });
+    
+                    
+                    
+            
+

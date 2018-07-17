@@ -1,25 +1,35 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+
+const checkAuthentication = require('../lib/middleware-lib').checkAuthentication;
 
 const User = require('../model/user-model');
+const Permition = require('../model/permition-model');
 
 
-router.get('/', function (req, res, next) {
-    User.findAll({})
+
+router.get('/',checkAuthentication, function (req, res, next) {
+    let include = [{
+        model: Permition
+    }];
+    User.findAll({include: include})
         .then((data) => {
-            res.render('list-user', { users: data });
+            if(data){
+                res.render('list-user', {currentUser: req.user, users: data });
+            }else{
+                res.send('Error')
+            }
         })
         .catch((err) => {
-            res.send('Error: ', err);
+            res.end('Error: '+ err);
         })
 });
 
-
-router.get('/add', function (req, res, next) {
-    res.render('register-user', {});
+router.get('/add',checkAuthentication, function (req, res, next) {
+    res.render('register-user', {currentUser: req.user});
 });
 
-router.post('/add', function (req, res, next) {
+router.post('/add',checkAuthentication, function (req, res, next) {
     try {
         let user = {
             firstName: req.body.first_name,
@@ -41,7 +51,7 @@ router.post('/add', function (req, res, next) {
     }
 });
 
-router.post('/edit/:id', function (req, res, next) {
+router.post('/edit/:id',checkAuthentication, function (req, res, next) {
     try {
         let user = {
             firstName: req.body.first_name,
@@ -71,18 +81,18 @@ router.post('/edit/:id', function (req, res, next) {
     }
 });
 
-router.get('/edit/:id', function (req, res, next) {
+router.get('/edit/:id',checkAuthentication, function (req, res, next) {
     User.findOne({ where: { id: req.params.id } })
         .then(data => {
             if (data)
-                res.render('register-user', { user: data });
+                res.render('register-user', {currentUser: req.user, user: data });
             else
                 res.redirect('/user')
         })
 });
 
 
-router.get('/delete/:id', function (req, res, next) {
+router.get('/delete/:id',checkAuthentication, function (req, res, next) {
     User.findOne({ where: { id: req.params.id } })
         .then(data => {
             if (data) {
@@ -98,8 +108,6 @@ router.get('/delete/:id', function (req, res, next) {
             }
         })
 });
-
-
 
 
 module.exports = router;

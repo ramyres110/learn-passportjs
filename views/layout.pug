@@ -9,12 +9,18 @@ html(lang="pt-br")
     body
         nav
             .nav-wrapper
-                a.brand-logo PassAuth
+                a.brand-logo(href="/") PassAuth
                 ul#nav-mobile.right.hide-on-med-and-down
-                    li
-                        a(href="/user") Users
-                    li
-                        a(href="/auth/login") Login
+                    if(currentUser)
+                        li
+                            a(href="/user") Users
+                        li
+                            a(href="/routine") Routine
+                        li
+                            a(href="/auth/logout") Logout
+                    else
+                        li
+                            a(href="/auth/login") Login
                 
         //-
         block content

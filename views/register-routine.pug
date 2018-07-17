@@ -1,0 +1,43 @@
+extends layout
+
+block content
+    .container
+        .row
+            if routine
+                h1 Edit Routine
+            else
+                h1 Add Routine
+        .row
+            - var data = (!!routine)? routine : {};
+            <form class="col s12" method='POST'>
+                input(type="hidden" name="id" value=data.id)
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="name" name="name" type="text" class="validate" value=#{data.name}>
+                        <label for="name">Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea name="description" id="textarea1" class="materialize-textarea">#{data.description}</textarea>
+                        <label for="textarea1">Description</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        .right
+                            <button class="btn waves-effect waves-light" type="submit"> Submit
+                                <i class="material-icons left">save</i>
+                            </button>
+                            <a href="/routine" class="btn waves-effect waves-light black-text yellow"> Cancel
+                                <i class="material-icons left">cancel</i>
+                            </a>
+                    </div>
+                </div>
+            </form>
+    script.
+        $('#textarea1').val('New Text');
+        M.textareaAutoResize($('#textarea1'));
+                    
+                    
+            
